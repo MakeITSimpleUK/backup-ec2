@@ -110,13 +110,18 @@ fetchClient = (index, clients, cb) ->
       Values: [ 'mis-ami-backup' ]
     } ]  
   myEC2.describeImages params, (err, data) ->
-    if not err and data.Images?.length
-      checkImageForDeletion 0, data.Images, ->
+    if not err 
+      if data and data.Images and data.Images.length
+        checkImageForDeletion 0, data.Images, ->
+          myEC2.describeInstances (err, reservations) ->
+            fetchReservation 0, reservations.Reservations, ->
+              goToNext()
+      else
         myEC2.describeInstances (err, reservations) ->
           fetchReservation 0, reservations.Reservations, ->
             goToNext()
     else
-      logError 'No images'
+      logError 'Client error'
       myEC2.describeInstances (err, reservations) ->
         fetchReservation 0, reservations.Reservations, ->
           goToNext()
