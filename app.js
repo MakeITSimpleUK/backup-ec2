@@ -183,9 +183,13 @@
           });
         } else {
           return myEC2.describeInstances(function(err, reservations) {
-            return fetchReservation(0, reservations.Reservations, function() {
+            if (reservations) {
+              return fetchReservation(0, reservations.Reservations, function() {
+                return goToNext();
+              });
+            } else {
               return goToNext();
-            });
+            }
           });
         }
       } else {

@@ -118,7 +118,10 @@ fetchClient = (index, clients, cb) ->
               goToNext()
       else
         myEC2.describeInstances (err, reservations) ->
-          fetchReservation 0, reservations.Reservations, ->
+          if reservations
+            fetchReservation 0, reservations.Reservations, ->
+              goToNext()
+          else
             goToNext()
     else
       logError 'Client error'
