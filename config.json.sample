@@ -1,0 +1,20 @@
+{
+    "clients": [
+        {
+            "clientName": "",
+            "accessKey": "",
+            "secretKey": "",
+            "region": "eu-west-1",
+            "daysToKeep": 7
+        }
+    ],
+    "mail": {
+        "port": 587,
+        "smtpServer": "smtp.mandrillapp.com",
+        "username": "username",
+        "password": "password",
+        "to": "admin@mis-uk.info",
+        "from": "admin@mis-uk.info",
+        "subject": "EC2 Backup Report"
+    }
+}
